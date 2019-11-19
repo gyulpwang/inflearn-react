@@ -22,9 +22,18 @@ class PhoneForm extends Component {
         })
     }
 
+    handleSubmit = (e) => {
+        e.preventDefault(); // 원래 해야할 작업을 안 하는 것(여기서는 새로고침을 방지)
+        this.props.onCreate(this.state);
+        this.setState({
+            name: '',
+            phone: '',
+        })
+    }
+
     render(){
         return(
-            <form>
+            <form onSubmit={this.handleSubmit}>
                 <input 
                     name="name"
                     placeholder="이름" 
@@ -37,9 +46,7 @@ class PhoneForm extends Component {
                     onChange={this.handleChange}
                     value={this.state.phone}
                 />
-                <div>
-                    {this.state.name} {this.state.phone}
-                </div>
+                <button type="submit">등록</button>
             </form>
         )
     }
