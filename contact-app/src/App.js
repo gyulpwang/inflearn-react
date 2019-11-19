@@ -16,7 +16,7 @@ class App extends Component{
     const {information} = this.state; // 비구조 할당 문법을 사용
     this.setState({
       /* information: information.concat({
-        // 첫 번째 방법
+        // 첫 번째 방법(cf. ... : spread 문법)
         //...data,
 
         // 두 번째 방법
@@ -26,18 +26,25 @@ class App extends Component{
         id: this.id++
       }) */
 
-      // 세번째 방법 : 빈 객체에 data를 집어넣는 방식
+      // 세 번째 방법 : 빈 객체에 data를 집어넣는 방식
       information: information.concat(Object.assign({}, data, {
         id: this.id++
       }))
     })
   }
 
+  handleRemove = (id) => {
+    const { information } = this.state;
+    this.setState({
+      information : information.filter(info => info.id !== id)
+    });
+  }
+
   render(){
     return (
       <div>
         <PhoneForm onCreate={this.handleCreate}/>
-        <PhoneInfoList data={this.state.information}/>
+        <PhoneInfoList data={this.state.information} onRemove={this.handleRemove}/>
       </div>
     );
   }
