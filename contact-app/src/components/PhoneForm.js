@@ -7,6 +7,8 @@ charalampos karypidis라는 사람이 만든 Reactjs code snippets라는 확장 
 이걸 설치 후 rcc라고 하면 클래스형 컴포넌트, rcs라고 하면 함수형 컴포넌트를 자동으로 생성해준다!
 */
 class PhoneForm extends Component {
+    //input = null;             // 1)
+    input = React.createRef();  // 2)
 
     state = {
         name : '',
@@ -28,7 +30,9 @@ class PhoneForm extends Component {
         this.setState({
             name: '',
             phone: '',
-        })
+        });
+        //this.input.focus();       // 1)
+        this.input.current.focus(); // 2)
     }
 
     render(){
@@ -38,7 +42,9 @@ class PhoneForm extends Component {
                     name="name"
                     placeholder="이름" 
                     onChange={this.handleChange} 
-                    value={this.state.name} 
+                    value={this.state.name}
+                    //ref={ref => this.input = ref} // 1)
+                    ref={this.input}                // 2)
                 />
                 <input
                     name="phone"
