@@ -7,7 +7,23 @@ class App extends Component{
   id = 0; // id는 렌더링 되는 값이 아니라 굳이 state에 설정 X
 
   state = {
-    information: [],
+    information: [
+      {
+        id: 0,
+        name: '홍길동',
+        phone: '010-0000-0001'
+      },
+      {
+        id: 1,
+        name: '성규림',
+        phone: '010-0000-0002'
+      },
+      {
+        id: 2,
+        name: '성귤퐝',
+        phone: '010-0000-0003'
+      }
+    ],
   }
 
   handleCreate = (data) => {

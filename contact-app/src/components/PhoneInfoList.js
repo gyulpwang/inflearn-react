@@ -9,7 +9,9 @@ class PhoneInfoList extends Component {
 
     render() {
         const {data, onRemove, onUpdate} = this.props;    // 비구조 할당을 통해 레퍼런스 만들어줌
-
+        
+        console.log('rendering list')
+        
         // 1. data가 없을 경우에 대한 조치 - 아예 이후 로직 수행 X
         //if(!data) return null;
 
