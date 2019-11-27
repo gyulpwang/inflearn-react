@@ -35,19 +35,23 @@ class App extends Component{
 
   handleCreate = (data) => {
     // react에서는 기존의 값은 불변해야함. 기존 값을 기반으로 새로 구성해야함.
-    // 배열의 경우 내장함수인 concat 사용 : 기존에 있던 배열은 수정하지 않고 새로운 배열을 만들어서 그 배열에다가 데이터를 집어넣어서 그 배열을 기존의 배열에 넣어주는 작업을 하는것.
+    /* 배열의 경우 내장함수인 concat 사용 : 
+    기존에 있던 배열은 수정하지 않고 새로운 배열을 만들어서 그 배열에다가 
+    데이터를 집어넣고 그 배열을 기존의 배열에 넣어주는 작업을 하는 것. */
     const {information} = this.state; // 비구조 할당 문법을 사용
     this.setState({
-      /* information: information.concat({
-        // 첫 번째 방법(cf. ... : spread 문법)
-        //...data,
+      // 첫 번째 방법(cf. ... : spread 문법)
+      /*information: information.concat({
+        ...data,
+      })*/
 
-        // 두 번째 방법
+      // 두 번째 방법
+      /*information: information.concat({
         name: data.name, 
         phone: data.phone,
 
         id: this.id++
-      }) */
+      })*/
 
       // 세 번째 방법 : 빈 객체에 data를 집어넣는 방식
       information: information.concat(Object.assign({}, data, {
@@ -59,6 +63,7 @@ class App extends Component{
   handleRemove = (id) => {
     const { information } = this.state;
     this.setState({
+      // filter : 특정 조건에 부합되는 원소들만 뽑아내서 새 배열을 만들어줌
       information : information.filter(info => info.id !== id)
     });
   }
@@ -66,7 +71,8 @@ class App extends Component{
   handleUpdate = (id, data) => {
     const { information } = this.state;
     this.setState({
-        information : information.map(
+        // 동영상 강의 내용
+        /*information : information.map(
             info => {
                 if(info.id === id){
                     return {
@@ -76,6 +82,13 @@ class App extends Component{
                 }
                 return info;
             }
+        )*/
+        
+        // 벨로퍼트로그 내용
+        information: information.map(
+          info => id === info.id
+            ? { ...info, ...data } // 새 객체를 만들어서 기존의 값과 전달받은 data 을 덮어씀
+            : info // 기존의 값을 그대로 유지
         )
     });
   }
@@ -83,13 +96,15 @@ class App extends Component{
   render(){
     return (
       <div>
-        <PhoneForm onCreate={this.handleCreate}/>
+        <PhoneForm
+          onCreate={this.handleCreate}
+        />
         <input
           value={this.state.keyword}
           onChange={this.handleChange}
           placeholder="검색..."
         />
-        <PhoneInfoList 
+        <PhoneInfoList
           data={this.state.information.filter(
             info => info.name.indexOf(this.state.keyword) > -1
           )}

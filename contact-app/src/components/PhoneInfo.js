@@ -7,7 +7,8 @@ class PhoneInfo extends Component {
         phone: ''
     }
 
-    // react code snippet을 설치했다면) 단축어 scu
+    // react code snippet을 설치했다면 => 단축어 scu
+    // 원래는 default로 true를 리턴하지만, 변경 내역이 있을 때만 true를 리턴시켜줌으로써 성능 최적화
     shouldComponentUpdate(nextProps, nextState){
         if(this.state !== nextState){
             return true;
